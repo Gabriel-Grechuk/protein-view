@@ -1,11 +1,12 @@
 class_name AtomConstants
 
+
 const _atomic_info = {
 	1: {
-		number = 1,
-		symbol = "H",
-		weight = 1.008,
-		radius = 1.1,
+		number = 1, 		# Atomic number.
+		symbol = "H",		# Symbol.
+		weight = 1.008,		# Atomic weight.
+		radius = 1.1,		# Van der Waals radius.
 	},
 
 	2: {
