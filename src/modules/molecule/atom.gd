@@ -20,4 +20,5 @@ func _init(default_number: int = 0,
 	symbol = default_symbol
 	weight = default_weight
 	radius = default_radius
+	position = default_position
 
