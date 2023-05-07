@@ -20,3 +20,10 @@ func _gen_bound_array(indexes: Array):
 	for index in indexes:
 		bounds.push_back(Bound.new(index[0], index[1]))
 
+func debug_print():
+	print("-----MOLECULE-----")
+	for atom in atoms:
+		atom.debug_print()
+	for bound in bounds:
+		bound.debug_print()
+	print()

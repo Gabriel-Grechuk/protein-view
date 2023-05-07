@@ -22,3 +22,13 @@ func _init(default_number: int = 0,
 	radius = default_radius
 	position = default_position
 
+func debug_print():
+	print("-----ATOM-----")
+	print("Atom: ", index)
+	print("Position: ", position)
+	print("Atomic number: ", number)
+	print("Symbol: ", symbol)
+	print("Weight: ", weight)
+	print("Radius: ", radius)
+	print()
+

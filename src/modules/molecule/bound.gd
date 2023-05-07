@@ -20,3 +20,11 @@ func _init(default_atom_1_index: int = 0,
 	position = default_position
 	angle = default_angle
 
+func debug_print():
+	print("-----BOUND-----")
+	print("Atom 1: ", atom_1_index)
+	print("Atom 2: ", atom_2_index)
+	print("Position: ", position)
+	print("Angle: ", angle)
+	print()
+
