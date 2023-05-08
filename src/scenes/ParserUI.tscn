@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://ca6sd8yp0iov3"]
+[gd_scene load_steps=2 format=3 uid="uid://ca6sd8yp0iov3"]
+
+[ext_resource type="Script" path="res://src/test/test.gd" id="1_a0d7u"]
 
 [node name="ParserUI" type="Control"]
 layout_mode = 3
@@ -44,3 +46,6 @@ offset_top = 100.0
 offset_right = 571.0
 offset_bottom = 131.0
 text = "Clear"
+
+[node name="Test" type="Node" parent="."]
+script = ExtResource("1_a0d7u")
