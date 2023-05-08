@@ -1,7 +1,7 @@
 class_name AtomConstants
 
 
-const _atomic_info = {
+const atomic_info = {
 	1: {
 		number = 1, 		# Atomic number.
 		symbol = "H",		# Symbol.
@@ -722,9 +722,114 @@ const _atomic_info = {
 		weight = 262,
 		radius = 2.0,
 	},
+
+	104: {
+		number = 104,
+		symbol = "Rf",
+		wheight = 261,
+		radius = 2.0,
+	},
+
+	105: {
+		number = 105,
+		symbol = "Db",
+		wheight = 262,
+		radius = 2.0,
+	},
+
+	106: {
+		number = 106,
+		symbol = "Sg",
+		wheight = 266,
+		radius = 2.0,
+	},
+
+	107: {
+		number = 107,
+		symbol = "Bh",
+		wheight = 264,
+		radius = 2.0,
+	},
+
+	108: {
+		number = 108,
+		symbol = "Hs",
+		wheight = 277,
+		radius = 2.0,
+	},
+
+	109: {
+		number = 109,
+		symbol = "Mt",
+		wheight = 268,
+		radius = 2.0,
+	},
+
+	110: {
+		number = 110,
+		symbol = "Ds",
+		wheight = 271,
+		radius = 2.0,
+	},
+
+	111: {
+		number = 111,
+		symbol = "Rg",
+		wheight = 272,
+		radius = 2.0,
+	},
+
+	112: {
+		number = 112,
+		symbol = "Cn",
+		wheight = 277,
+		radius = 2.0,
+	},
+
+	113: {
+		number = 113,
+		symbol = "Nh",
+		wheight = 286,
+		radius = 2.0,
+	},
+
+	114: {
+		number = 114,
+		symbol = "Fl",
+		wheight = 289,
+		radius = 2.0,
+	},
+
+	115: {
+		number = 115,
+		symbol = "Mc",
+		wheight = 288,
+		radius = 2.0,
+	},
+
+	116: {
+		number = 116,
+		symbol = "Lv",
+		wheight = 293,
+		radius = 2.0,
+	},
+
+	117: {
+		number = 117,
+		symbol = "Ts",
+		wheight = 294,
+		radius = 2.0,
+	},
+
+	118: {
+		number = 118,
+		symbol = "Og",
+		wheight = 294,
+		radius = 2.0,
+	},
 }
 
-const _atomic_number_map = {
+const atomic_number_map = {
 	H  = 1,
 	He = 2,
 	Li = 3,
@@ -828,24 +933,41 @@ const _atomic_number_map = {
 	Md = 101,
 	No = 102,
 	Lr = 103,
+	Rf = 104,
+	Db = 105,
+	Sg = 106,
+	Bh = 107,
+	Hs = 108,
+	Mt = 109,
+	Ds = 110,
+	Rg = 111,
+	Cn = 112,
+	Nh = 113,
+	Fl = 114,
+	Mc = 115,
+	Lv = 116,
+	Ts = 117,
+	Og = 118,
 }
 
-
-static func get_atom_by_number(atomic_number: int) -> Atom:
-	if atomic_number < 1 or atomic_number > 103:
-		push_error("Invalid atomic number.")
-
-	return Atom.new(_atomic_info[atomic_number].number,
-			_atomic_info[atomic_number].symbol,
-			_atomic_info[atomic_number].weight,
-			_atomic_info[atomic_number].radius)
-
-static func get_atom(symbol: String) -> Atom:
-	var atomic_number: int = _atomic_number_map[symbol]
-	if not atomic_number:
-		push_error("Invalid atomic symbol.")
-	
-	return Atom.new(_atomic_info[atomic_number].number,
-			_atomic_info[atomic_number].symbol,
-			_atomic_info[atomic_number].weight,
-			_atomic_info[atomic_number].radius)
+const electron_energy_levels = {
+	_1s = 2,
+	_2s = 2,
+	_2p = 6,
+	_3s = 2,
+	_3p = 6,
+	_4s = 2,
+	_3d = 10,
+	_4p = 6,
+	_5s = 2,
+	_4d = 10,
+	_5p = 6,
+	_6s = 2,
+	_4f = 14,
+	_5d = 10,
+	_6p = 6,
+	_7s = 2,
+	_5f = 14,
+	_6d = 10,
+	_7p = 6,
+}
