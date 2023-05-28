@@ -12,8 +12,8 @@ var radius: float	# Van der Waals radius.
 var electronic_configuration: Dictionary
 
 
-func _init(symbol: String):
-	var atomic_number: int = AtomConstants.atomic_number_map[symbol]
+func _init(_symbol: String):
+	var atomic_number: int = AtomConstants.atomic_number_map[_symbol]
 	if not atomic_number:
 		push_error("Invalid atomic symbol.")
 
