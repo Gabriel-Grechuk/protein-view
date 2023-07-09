@@ -11,6 +11,12 @@ config_version=5
 [application]
 
 config/name="Protein-view"
-run/main_scene="res://src/scenes/DefaultView.tscn"
+run/main_scene="res://src/scenes/Main.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=500
+window/size/viewport_height=265
+window/size/resizable=false
