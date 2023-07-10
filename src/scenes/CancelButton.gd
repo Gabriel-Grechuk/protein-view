@@ -1,6 +1,6 @@
 extends Button
 
-@onready var menu := $'../..'
+@onready var scene := $'../../../'
 
 func _pressed():
-	menu.hide()
+	scene.unpause()

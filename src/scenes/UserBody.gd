@@ -12,16 +12,11 @@ const GRAVITY = 15
 
 @onready var neck := $Neck
 @onready var camera := $Neck/Camera3D
-@onready var menu = $'../Menu'
+@onready var scene := $'..'
+
 
 # Handle mouse input.
 func _unhandled_input(event: InputEvent):
-	if event is InputEventMouseButton:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	elif event.is_action_pressed('ui_cancel'):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		menu.show()
-	
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
 			neck.rotate_y(-event.relative.x * MOUSE_SENSIVITY)
@@ -31,20 +26,21 @@ func _unhandled_input(event: InputEvent):
 
 # Regular first person player input.
 func _physics_process(delta):
-	if not is_on_floor():
-		velocity.y -= GRAVITY * delta
+	if not scene.paused:
+		if not is_on_floor():
+			velocity.y -= GRAVITY * delta
 
-	# I'm not sure if the viewer will be able to jump, but i'm keeping it for now.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_SPEED
+		# I'm not sure if the viewer will be able to jump, but i'm keeping it for now.
+		if Input.is_action_just_pressed("jump") and is_on_floor():
+			velocity.y = JUMP_SPEED
 
-	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-	var direction = (neck.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * MOVE_SPEED
-		velocity.z = direction.z * MOVE_SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, MOVE_SPEED)
-		velocity.z = move_toward(velocity.z, 0, MOVE_SPEED)
+		var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+		var direction = (neck.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		if direction:
+			velocity.x = direction.x * MOVE_SPEED
+			velocity.z = direction.z * MOVE_SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, MOVE_SPEED)
+			velocity.z = move_toward(velocity.z, 0, MOVE_SPEED)
 
-	move_and_slide()
+		move_and_slide()

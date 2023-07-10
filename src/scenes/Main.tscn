@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://coeb3fi43v5f"]
+[gd_scene load_steps=16 format=3 uid="uid://coeb3fi43v5f"]
 
 [ext_resource type="Script" path="res://src/scenes/UserBody.gd" id="1_0bpiu"]
+[ext_resource type="Script" path="res://src/scenes/Main.gd" id="1_kdk3f"]
 [ext_resource type="Script" path="res://src/scenes/CancelButton.gd" id="2_1tu34"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6sog6"]
@@ -38,7 +39,12 @@ albedo_color = Color(0.552941, 0.4, 0.709804, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_31rn1"]
 material = SubResource("StandardMaterial3D_u21kk")
 
+[sub_resource type="GDScript" id="GDScript_lt2di"]
+
+[sub_resource type="GDScript" id="GDScript_2u5ai"]
+
 [node name="DefaultView" type="Node3D"]
+script = ExtResource("1_kdk3f")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_25gcm")
@@ -84,6 +90,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = SubResource("GDScript_lt2di")
 
 [node name="MenuPanel" type="Panel" parent="Menu"]
 layout_mode = 1
@@ -96,6 +103,7 @@ offset_left = -250.0
 offset_top = -131.5
 offset_right = 249.0
 offset_bottom = 131.5
+script = SubResource("GDScript_2u5ai")
 
 [node name="SmileInput" type="TextEdit" parent="Menu/MenuPanel"]
 layout_mode = 1
