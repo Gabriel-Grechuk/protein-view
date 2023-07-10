@@ -17,7 +17,6 @@ func unpause():
 	paused = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	menu.hide()
-	userBody.unpause_routine()
 
 
 func _unhandled_input(event: InputEvent):
