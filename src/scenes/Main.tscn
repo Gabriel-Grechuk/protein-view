@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://dqcyrgqiv3c1i"]
+[gd_scene load_steps=13 format=3 uid="uid://coeb3fi43v5f"]
 
 [ext_resource type="Script" path="res://src/scenes/UserBody.gd" id="1_0bpiu"]
+[ext_resource type="Script" path="res://src/scenes/CancelButton.gd" id="2_1tu34"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6sog6"]
 sky_top_color = Color(0.384314, 0.454902, 0.54902, 1)
@@ -75,3 +76,66 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
 [node name="DebugObj" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_31rn1")
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuPanel" type="Panel" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -131.5
+offset_right = 249.0
+offset_bottom = 131.5
+
+[node name="SmileInput" type="TextEdit" parent="Menu/MenuPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.0
+offset_top = -14.0
+offset_right = 98.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+placeholder_text = "Enter SMILE"
+
+[node name="LoadSmileButton" type="Button" parent="Menu/MenuPanel"]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 154.0
+offset_right = 294.0
+offset_bottom = 179.0
+theme_override_font_sizes/font_size = 12
+text = "Load SMILE"
+
+[node name="CancelButton" type="Button" parent="Menu/MenuPanel"]
+layout_mode = 0
+offset_left = 302.0
+offset_top = 154.0
+offset_right = 349.0
+offset_bottom = 179.0
+theme_override_font_sizes/font_size = 12
+text = "Cancel"
+script = ExtResource("2_1tu34")
+
+[node name="Logs" type="Label" parent="."]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 96.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 11
+text = "Logs in here"

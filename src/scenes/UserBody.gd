@@ -12,7 +12,7 @@ const GRAVITY = 15
 
 @onready var neck := $Neck
 @onready var camera := $Neck/Camera3D
-
+@onready var menu = $'../Menu'
 
 # Handle mouse input.
 func _unhandled_input(event: InputEvent):
@@ -20,6 +20,7 @@ func _unhandled_input(event: InputEvent):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	elif event.is_action_pressed('ui_cancel'):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		menu.show()
 	
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
