@@ -12,3 +12,5 @@ data_*/
 
 # Biaries
 bin/
+build/
+target
