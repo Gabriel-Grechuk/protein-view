@@ -1,5 +1,7 @@
 use godot::prelude::*;
 
+mod atom;
+
 struct ProteinViewCore;
 
 #[gdextension]
