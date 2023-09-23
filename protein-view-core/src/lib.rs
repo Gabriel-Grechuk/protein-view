@@ -1,6 +1,7 @@
 use godot::prelude::*;
 
 mod atom;
+mod molecule;
 
 struct ProteinViewCore;
 
