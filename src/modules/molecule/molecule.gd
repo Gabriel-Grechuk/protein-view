@@ -12,7 +12,7 @@ func _init(symbols: Array[String] = [],
 
 func _gen_atom_array(symbols: Array[String]):
 	for i in symbols.size():
-		var _atom = AtomConstants.get_atom(symbols[i])
+		var _atom = Atom.new(symbols[i]);
 		_atom.index = i + 1
 		atoms.push_back(_atom)
 

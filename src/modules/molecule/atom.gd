@@ -10,17 +10,21 @@ var symbol: String	# Symbol.
 var weight: float	# Atomic weight.
 var radius: float	# Van der Waals radius.
 
+var ion: int
 
-func _init(default_number: int = 0,
-		default_symbol: String = "",
-		default_weight: float = 0,
-		default_radius: float = 0,
-		default_position: Vector3 = Vector3(0, 0, 0)):
-	number = default_number
-	symbol = default_symbol
-	weight = default_weight
-	radius = default_radius
-	position = default_position
+
+func _init(_symbol: String, default_ion: int = 0):
+	var atomic_number: int = AtomConstants.atomic_number_map[_symbol]
+	if not atomic_number:
+		push_error("Invalid atomic symbol.")
+
+	number = AtomConstants.atomic_info[atomic_number].number
+	symbol = AtomConstants.atomic_info[atomic_number].symbol
+	weight = AtomConstants.atomic_info[atomic_number].weight
+	radius = AtomConstants.atomic_info[atomic_number].radius
+	position = Vector3(0, 0, 0)
+	ion = default_ion
+	
 
 func debug_print():
 	print("-----ATOM-----")
@@ -31,4 +35,3 @@ func debug_print():
 	print("Weight: ", weight)
 	print("Radius: ", radius)
 	print()
-
