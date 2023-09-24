@@ -1,20 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://ca6sd8yp0iov3"]
-
-[sub_resource type="GDScript" id="GDScript_at7hl"]
-script/source = "class_name Test
-extends Node
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	var molecule := Molecule.new([\"C\", \"C\", \"Cl\"], [[1, 2], [2, 3]])
-	molecule.debug_print()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-"
+[gd_scene format=3 uid="uid://ca6sd8yp0iov3"]
 
 [node name="ParserUI" type="Control"]
 layout_mode = 3
@@ -60,6 +44,3 @@ offset_top = 100.0
 offset_right = 571.0
 offset_bottom = 131.0
 text = "Clear"
-
-[node name="Test" type="Node" parent="."]
-script = SubResource("GDScript_at7hl")

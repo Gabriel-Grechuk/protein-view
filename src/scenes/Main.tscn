@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://coeb3fi43v5f"]
+[gd_scene load_steps=11 format=3 uid="uid://coeb3fi43v5f"]
 
 [ext_resource type="Script" path="res://src/scenes/scripts/Main.gd" id="1_p35yk"]
 [ext_resource type="PackedScene" uid="uid://dcfskf8qq28gf" path="res://src/scenes/User.tscn" id="2_l5qww"]
 [ext_resource type="PackedScene" uid="uid://bosi6edhl5v8a" path="res://src/scenes/Environment.tscn" id="3_m8jif"]
 [ext_resource type="PackedScene" uid="uid://cfmsnt483isnt" path="res://src/scenes/MainUI.tscn" id="4_j7yqu"]
+[ext_resource type="Script" path="res://src/scenes/scripts/StateMachine.gd" id="5_j8bh3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6sog6"]
 sky_top_color = Color(0.384314, 0.454902, 0.54902, 1)
@@ -43,3 +44,8 @@ mesh = SubResource("SphereMesh_31rn1")
 [node name="Environment" parent="." instance=ExtResource("3_m8jif")]
 
 [node name="MainUI" parent="." instance=ExtResource("4_j7yqu")]
+visible = false
+script = null
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("5_j8bh3")

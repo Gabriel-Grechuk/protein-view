@@ -1,6 +1,6 @@
 extends Button
 
-@onready var scene := $'../../../'
+@onready var stateMachine := get_node('/root/Main/StateMachine')
 
 func _pressed():
-	scene.unpause()
+	stateMachine.unpause()

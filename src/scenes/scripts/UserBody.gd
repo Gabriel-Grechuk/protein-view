@@ -12,8 +12,7 @@ const GRAVITY = 15
 
 @onready var neck := $Neck
 @onready var camera := $Neck/Camera3D
-@onready var scene := $'..'
-
+@onready var stateMachine := get_node('/root/Main/StateMachine')
 
 # Handle mouse input.
 func _unhandled_input(event: InputEvent):
@@ -26,7 +25,7 @@ func _unhandled_input(event: InputEvent):
 
 # Regular first person player input.
 func _physics_process(delta):
-	if not scene.paused:
+	if not stateMachine.isPaused():
 		if not is_on_floor():
 			velocity.y -= GRAVITY * delta
 

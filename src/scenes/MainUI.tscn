@@ -1,10 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfmsnt483isnt"]
+[gd_scene load_steps=3 format=3 uid="uid://cfmsnt483isnt"]
 
 [ext_resource type="Script" path="res://src/scenes/scripts/CancelButton.gd" id="1_tfj8s"]
 
-[sub_resource type="GDScript" id="GDScript_v40vt"]
-
-[sub_resource type="GDScript" id="GDScript_5ie2n"]
+[sub_resource type="GDScript" id="GDScript_eou8o"]
 
 [node name="MainUI" type="Control"]
 layout_mode = 3
@@ -13,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = SubResource("GDScript_eou8o")
 
 [node name="Menu" type="Control" parent="."]
 layout_mode = 1
@@ -21,7 +20,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = SubResource("GDScript_v40vt")
 
 [node name="MenuPanel" type="Panel" parent="Menu"]
 layout_mode = 1
@@ -34,7 +32,6 @@ offset_left = -250.0
 offset_top = -131.5
 offset_right = 249.0
 offset_bottom = 131.5
-script = SubResource("GDScript_5ie2n")
 
 [node name="SmileInput" type="TextEdit" parent="Menu/MenuPanel"]
 layout_mode = 1
@@ -72,6 +69,7 @@ text = "Cancel"
 script = ExtResource("1_tfj8s")
 
 [node name="Logs" type="Label" parent="."]
+layout_mode = 0
 offset_left = 2.0
 offset_top = 2.0
 offset_right = 96.0
