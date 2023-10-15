@@ -321,10 +321,8 @@ def get_tokens(smile):
 
         if atom_token == "@@":
             lexer_tree.append(atom_token)
-            count += 2
-            continue
-
-        if list_includes(SingleCharKeywords, token):
+            count += 1
+        elif list_includes(SingleCharKeywords, token):
             lexer_tree.append(token)
         elif list_includes(AtomSymbols, atom_token):
             lexer_tree.append(atom_token)
@@ -346,14 +344,17 @@ def get_lexer_tree(smile):
     tokens = get_tokens(smile)
     lexer_tree = []
 
+    inside_atom = False
     for token in tokens:
         if list_includes(AtomSymbols, token):
             lexer_tree.append((Token.ATOM, token))
         elif list_includes(AromaticLowercaseSymbols, token):
             lexer_tree.append((Token.LOWER_CASE_ATOM, token))
         elif token == "[":
+            inside_atom = True
             lexer_tree.append((Token.OPEN_ATOM_BRACKET, token))
         elif token == "]":
+            inside_atom = False
             lexer_tree.append((Token.CLOSE_ATOM_BRACKET, token))
         elif token == "(":
             lexer_tree.append((Token.OPEN_BRANCH_PARENTHESES, token))
@@ -362,7 +363,10 @@ def get_lexer_tree(smile):
         elif token == ".":
             lexer_tree.append((Token.BOUND_1, token))
         elif token == "-":
-            lexer_tree.append((Token.BOUND_1, token))
+            if inside_atom:
+                lexer_tree.append((Token.NEGATIVE_CHARGE, token))
+            else:
+                lexer_tree.append((Token.BOUND_1, token))
         elif token == "=":
             lexer_tree.append((Token.BOUND_2, token))
         elif token == "#":
@@ -391,6 +395,6 @@ def get_lexer_tree(smile):
     return lexer_tree
 
 
-lex = get_lexer_tree("[C%11]ClCnCN")
+lex = get_lexer_tree("[Na+]-[Cl-]")
 for token in lex:
     print(f"{token[1]} : {token[0]}")
