@@ -262,6 +262,7 @@ AromaticLowercaseSymbols = ["b", "c", "n", "o", "p", "s"]
 SeparatorSymbols = ["[", "]", "(", ")"]
 BondSymbols = [".", "-", "=", "#", "$", ":", "/", "\\", "@", "@@"]
 ChargeSymbols = ["+", "-"]
+SpecialSymbols = ["%"]
 
 SingleCharKeywords = (
     AromaticLowercaseSymbols + SeparatorSymbols + BondSymbols + ChargeSymbols
@@ -296,8 +297,9 @@ class Token(Enum):
     POSITIVE_CHARGE = 16
     NEGATIVE_CHARGE = 17
 
-    # Numerical constant token
+    # Numerical constant tokens
     NUMERICAL_CONSTANT = 18
+    FORCE_NUMERICAL_LABEL = 19
 
 
 def get_tokens(smile):
@@ -329,6 +331,8 @@ def get_tokens(smile):
             count += 1
         elif list_includes(AtomSymbols, token):
             lexer_tree.append(token)
+        elif list_includes(SpecialSymbols, token):
+            lexer_tree.append(token)
 
         if token.isnumeric():
             numeric_lexeme += token
@@ -347,48 +351,46 @@ def get_lexer_tree(smile):
             lexer_tree.append((Token.ATOM, token))
         elif list_includes(AromaticLowercaseSymbols, token):
             lexer_tree.append((Token.LOWER_CASE_ATOM, token))
-        elif list_includes(SeparatorSymbols, token):
-            if token == "[":
-                lexer_tree.append((Token.OPEN_ATOM_BRACKET, token))
-            elif token == "]":
-                lexer_tree.append((Token.CLOSE_ATOM_BRACKET, token))
-            elif token == "(":
-                lexer_tree.append((Token.OPEN_BRANCH_PARENTHESES, token))
-            elif token == ")":
-                lexer_tree.append((Token.CLOSE_BRANCH_PARENTHESES, token))
-        elif list_includes(BondSymbols, token):
-            if token == ".":
-                lexer_tree.append((Token.BOUND_1, token))
-            elif token == "-":
-                lexer_tree.append((Token.BOUND_1, token))
-            elif token == "=":
-                lexer_tree.append((Token.BOUND_2, token))
-            elif token == "#":
-                lexer_tree.append((Token.BOUND_3, token))
-            elif token == "$":
-                lexer_tree.append((Token.BOUND_4, token))
-            elif token == ":":
-                lexer_tree.append((Token.AROMATIC_BOUND, token))
-            elif token == "/":
-                lexer_tree.append((Token.DIRECTIONAL_UP_BOUND, token))
-            elif token == "\\":
-                lexer_tree.append((Token.DIRECTIONAL_DOWN_BOUND, token))
-            elif token == "@@":
-                lexer_tree.append((Token.DIRECTIONAL_CLOCK_WISE, token))
-            elif token == "@":
-                lexer_tree.append((Token.DIRECTIONAL_COUNTER_CLOCK_WISE, token))
-        elif list_includes(ChargeSymbols, token):
-            if token == "+":
-                lexer_tree.append((Token.POSITIVE_CHARGE, token))
-            if token == "-":
-                lexer_tree.append((Token.NEGATIVE_CHARGE, token))
+        elif token == "[":
+            lexer_tree.append((Token.OPEN_ATOM_BRACKET, token))
+        elif token == "]":
+            lexer_tree.append((Token.CLOSE_ATOM_BRACKET, token))
+        elif token == "(":
+            lexer_tree.append((Token.OPEN_BRANCH_PARENTHESES, token))
+        elif token == ")":
+            lexer_tree.append((Token.CLOSE_BRANCH_PARENTHESES, token))
+        elif token == ".":
+            lexer_tree.append((Token.BOUND_1, token))
+        elif token == "-":
+            lexer_tree.append((Token.BOUND_1, token))
+        elif token == "=":
+            lexer_tree.append((Token.BOUND_2, token))
+        elif token == "#":
+            lexer_tree.append((Token.BOUND_3, token))
+        elif token == "$":
+            lexer_tree.append((Token.BOUND_4, token))
+        elif token == ":":
+            lexer_tree.append((Token.AROMATIC_BOUND, token))
+        elif token == "/":
+            lexer_tree.append((Token.DIRECTIONAL_UP_BOUND, token))
+        elif token == "\\":
+            lexer_tree.append((Token.DIRECTIONAL_DOWN_BOUND, token))
+        elif token == "@@":
+            lexer_tree.append((Token.DIRECTIONAL_CLOCK_WISE, token))
+        elif token == "@":
+            lexer_tree.append((Token.DIRECTIONAL_COUNTER_CLOCK_WISE, token))
+        elif token == "+":
+            lexer_tree.append((Token.POSITIVE_CHARGE, token))
+        elif token == "-":
+            lexer_tree.append((Token.NEGATIVE_CHARGE, token))
+        elif token == "%":
+            lexer_tree.append((Token.FORCE_NUMERICAL_LABEL, token))
         elif token.isnumeric():
             lexer_tree.append((Token.NUMERICAL_CONSTANT, token))
 
     return lexer_tree
 
 
-lex = get_lexer_tree("CC(C)[C@@]12C[C@@H]1[C@@H](C)C(=O)C2")
-
+lex = get_lexer_tree("[C%11]ClCnCN")
 for token in lex:
     print(f"{token[1]} : {token[0]}")
