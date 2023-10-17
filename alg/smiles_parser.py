@@ -1,6 +1,7 @@
 #!/bin/python3
 
 from enum import Enum
+import sys
 
 ###############################################################################
 #
@@ -10,15 +11,17 @@ from enum import Enum
 
 
 class Atom:
-    def __init__(self, index=0, atom="H", charge=0, hash=None, bonds=None):
+    def __init__(self, index=0, atom="H", charge=0, hash=None, bonds=None, hidrogens=0, directional="clockwise"):
         self.index = index
         self.atom = atom
         self.charge = charge
         self.hash = hash
         self.bonds = bonds
+        self.hidrogens = hidrogens
+        self.directional = directional
 
     def __str__(self):
-        return f"index: {self.index} | atom: {self.atom} | charge: {self.charge} | hash: {self.hash}"
+        return f"index: {self.index} | atom: {self.atom} | charge: {self.charge} | hash: {self.hash} | hidrogens: {self.hidrogens} | directional: {self.dore}"
 
     def log(self):
         print(self)
@@ -272,34 +275,35 @@ SingleCharKeywords = (
 class Token(Enum):
     # Atom tokens
     ATOM = 1
-    LOWER_CASE_ATOM = 2
+    HIDROGEN = 2
+    LOWER_CASE_ATOM = 3
 
     # Bonds tokens
-    BOUND_1 = 3
-    BOUND_2 = 4
-    BOUND_3 = 5
-    BOUND_4 = 6
-    AROMATIC_BOUND = 7
-    DIRECTIONAL_UP_BOUND = 8
-    DIRECTIONAL_DOWN_BOUND = 9
+    BOUND_1 = 4
+    BOUND_2 = 5
+    BOUND_3 = 6
+    BOUND_4 = 7
+    AROMATIC_BOUND = 8
+    DIRECTIONAL_UP_BOUND = 9
+    DIRECTIONAL_DOWN_BOUND = 10
 
     # Configuration tokens
-    DIRECTIONAL_CLOCK_WISE = 10
-    DIRECTIONAL_COUNTER_CLOCK_WISE = 11
+    DIRECTIONAL_CLOCK_WISE = 11
+    DIRECTIONAL_COUNTER_CLOCK_WISE = 12
 
     # Separator tokens
-    OPEN_ATOM_BRACKET = 12
-    CLOSE_ATOM_BRACKET = 13
-    OPEN_BRANCH_PARENTHESES = 14
-    CLOSE_BRANCH_PARENTHESES = 15
+    OPEN_ATOM_BRACKET = 13
+    CLOSE_ATOM_BRACKET = 14
+    OPEN_BRANCH_PARENTHESES = 15
+    CLOSE_BRANCH_PARENTHESES = 16
 
     # Charge tokens
-    POSITIVE_CHARGE = 16
-    NEGATIVE_CHARGE = 17
+    POSITIVE_CHARGE = 17
+    NEGATIVE_CHARGE = 18
 
     # Numerical constant tokens
-    NUMERICAL_CONSTANT = 18
-    FORCE_NUMERICAL_LABEL = 19
+    NUMERICAL_CONSTANT = 19
+    FORCE_NUMERICAL_LABEL = 20
 
 
 def get_tokens(smile):
@@ -347,7 +351,10 @@ def get_lexer_tree(smile):
     inside_atom = False
     for token in tokens:
         if list_includes(AtomSymbols, token):
-            lexer_tree.append((Token.ATOM, token))
+            if inside_atom and token == "H":
+                lexer_tree.append((Token.HIDROGEN, token))
+            else:
+                lexer_tree.append((Token.ATOM, token))
         elif list_includes(AromaticLowercaseSymbols, token):
             lexer_tree.append((Token.LOWER_CASE_ATOM, token))
         elif token == "[":
@@ -395,6 +402,78 @@ def get_lexer_tree(smile):
     return lexer_tree
 
 
-lex = get_lexer_tree("[Na+]-[Cl-]")
-for token in lex:
-    print(f"{token[1]} : {token[0]}")
+def parse(smile):
+    lex = get_lexer_tree(smile)
+    for l in lex:
+        print(f"{l[1]} : {l[0]}")
+    print("==============================")
+
+    atoms = []
+
+    # Constext variables.
+    inside_atom = False
+    atom_buffer = Atom()
+    previows_atom = False
+
+    count = 0
+    while count < len(lex):
+        token = lex[count]
+        next_token = lex[count + 1] if count + 1 < len(lex) else []
+
+        if token[0] == Token.OPEN_ATOM_BRACKET:
+            if inside_atom:
+                raise Exception("Invalid atom definition")
+
+            inside_atom = True
+
+        # Inside atom processing:
+        if inside_atom == True:
+            if token[0] == Token.CLOSE_ATOM_BRACKET:
+                inside_atom = False
+                previows_atom = False
+                atoms.append(atom_buffer)
+                atom_buffer = Atom()
+
+            elif token[0] == Token.ATOM:
+                atom_buffer.atom = token[1]
+                previows_atom = True
+
+            elif token[0] == Token.LOWER_CASE_ATOM:
+                atom_buffer.atom = token[1]
+                previows_atom = True
+
+            elif token[0] == Token.POSITIVE_CHARGE:
+                if next_token[0] == Token.NUMERICAL_CONSTANT:
+                    atom_buffer.charge = int(next_token[1])
+                    count += 1
+                else:
+                    atom_buffer.charge += 1
+            elif token[0] == Token.NEGATIVE_CHARGE:
+                if next_token[0] == Token.NUMERICAL_CONSTANT:
+                    atom_buffer.charge = -int(next_token[1])
+                    count += 1
+                else:
+                    atom_buffer.charge -= 1
+
+            elif token[0] == Token.HIDROGEN:
+                if previows_atom:
+                    if next_token[0] and next_token[0] == Token.NUMERICAL_CONSTANT:
+                        atom_buffer.hidrogens += int(next_token[1])
+                        count += 1
+                    else:
+                        atom_buffer.hidrogens += 1
+                else:
+                    atom_buffer.atom = token[1]
+                    previows_atom = True
+
+        # End loop
+        count += 1
+
+    return atoms
+
+
+# atoms = parse("[Na+]-[ClH4-][C][Na+++][HH]")
+atoms = parse(sys.argv[1])
+
+for atom in atoms:
+    print(f"Loaded atom: {atom}")
