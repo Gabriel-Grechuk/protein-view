@@ -329,14 +329,18 @@ BondEnums = [
 
 def get_tokens(smile):
     lexer_tree = []
+
+    numeric_constant = False
     numeric_lexeme = ""
 
     count = 0
     while count < len(smile):
         token = smile[count]
+        next_token = smile[count + 1] if count + 1 < len(smile) else []
+
         atom_token = ""
         if count + 1 < len(smile):
-            atom_token = list_to_str([token, smile[count + 1]])
+            atom_token = list_to_str([token, next_token])
         else:
             atom_token = token
 
@@ -354,7 +358,13 @@ def get_tokens(smile):
             lexer_tree.append(token)
 
         if token.isnumeric():
-            numeric_lexeme += token
+            if numeric_constant:
+                numeric_lexeme += token
+            else:
+                lexer_tree.append(token)
+
+        if token == "%":
+            numeric_constant = True
 
         if not token.isnumeric() and numeric_lexeme != "":
             lexer_tree.append(list_to_str(numeric_lexeme))
@@ -455,7 +465,7 @@ def parse(smile):
             if token[0] == Token.CLOSE_ATOM_BRACKET:
                 inside_atom = False
                 previows_atom = False
-                if next_token[0] == Token.NUMERICAL_CONSTANT:
+                if len(next_token) != 0 and next_token[0] == Token.NUMERICAL_CONSTANT:
                     atom_buffer.label = next_token[1]
                     count += 1
                 branch.append(atom_buffer)
