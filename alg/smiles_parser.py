@@ -313,7 +313,6 @@ class Token(Enum):
 
     # Numerical constant tokens
     NUMERICAL_CONSTANT = 19
-    FORCE_NUMERICAL_LABEL = 20
 
 
 BondEnums = [
@@ -354,17 +353,14 @@ def get_tokens(smile):
             count += 1
         elif list_includes(AtomSymbols, token):
             lexer_tree.append(token)
-        elif list_includes(SpecialSymbols, token):
-            lexer_tree.append(token)
+        elif token == "%":
+            numeric_constant = True
 
         if token.isnumeric():
             if numeric_constant:
                 numeric_lexeme += token
             else:
                 lexer_tree.append(token)
-
-        if token == "%":
-            numeric_constant = True
 
         if not token.isnumeric() and numeric_lexeme != "":
             lexer_tree.append(list_to_str(numeric_lexeme))
