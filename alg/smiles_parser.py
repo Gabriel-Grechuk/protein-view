@@ -424,8 +424,6 @@ def get_lexer_tree(smile):
             lexer_tree.append((Token.POSITIVE_CHARGE, token))
         elif token == "-":
             lexer_tree.append((Token.NEGATIVE_CHARGE, token))
-        elif token == "%":
-            lexer_tree.append((Token.FORCE_NUMERICAL_LABEL, token))
         elif token.isnumeric():
             lexer_tree.append((Token.NUMERICAL_CONSTANT, token))
 
