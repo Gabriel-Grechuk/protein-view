@@ -362,7 +362,7 @@ def get_tokens(smile):
             else:
                 lexer_tree.append(token)
 
-        if not token.isnumeric() and numeric_lexeme != "":
+        if len(next_token) != 0 and not next_token.isnumeric() and numeric_lexeme != "":
             lexer_tree.append(list_to_str(numeric_lexeme))
             numeric_lexeme = ""
         elif count + 1 == len(smile) and numeric_lexeme != "":
