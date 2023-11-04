@@ -2,45 +2,210 @@
 
 [node name="ParserUI" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -74.0
-offset_top = -58.0
-offset_right = -574.0
-offset_bottom = -323.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ResultInput" type="TextEdit" parent="."]
-layout_mode = 2
-offset_left = 79.0
-offset_top = 136.0
-offset_right = 570.0
-offset_bottom = 316.0
-placeholder_text = "Result"
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -555.0
+offset_top = -309.5
+offset_right = 555.0
+offset_bottom = 309.5
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="SmileInput" type="TextEdit" parent="."]
-custom_minimum_size = Vector2(100, 26)
+[node name="SDF Input" type="Control" parent="TabContainer"]
 layout_mode = 2
-offset_left = 76.0
-offset_top = 61.0
-offset_right = 573.0
-offset_bottom = 95.0
-placeholder_text = "Enter Smile"
 
-[node name="ParseButton" type="Button" parent="."]
-layout_mode = 2
-offset_left = 398.0
-offset_top = 100.0
-offset_right = 485.0
-offset_bottom = 131.0
-text = "Parse!"
+[node name="ResultInput" type="TextEdit" parent="TabContainer/SDF Input"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -312.5
+offset_top = -112.5
+offset_right = 292.5
+offset_bottom = 104.5
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "PDB file content..."
 
-[node name="ClearButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 495.0
-offset_top = 100.0
-offset_right = 571.0
-offset_bottom = 131.0
+[node name="ParseButton" type="Button" parent="TabContainer/SDF Input"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 204.5
+offset_top = 113.5
+offset_right = 291.5
+offset_bottom = 144.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Load"
+
+[node name="ClearButton" type="Button" parent="TabContainer/SDF Input"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 120.5
+offset_top = 113.5
+offset_right = 196.5
+offset_bottom = 144.5
+grow_horizontal = 2
+grow_vertical = 2
 text = "Clear"
+
+[node name="LoadSDF" type="Label" parent="TabContainer/SDF Input"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -313.5
+offset_top = -145.5
+offset_right = -161.5
+offset_bottom = -119.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Load SDF from file:"
+
+[node name="PasteBellow" type="Label" parent="TabContainer/SDF Input"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = -146.0
+offset_right = 294.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "or paste the SDF content in the field below:"
+
+[node name="Button" type="Button" parent="TabContainer/SDF Input"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -153.5
+offset_top = -148.5
+offset_right = -49.5
+offset_bottom = -117.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Select file..."
+
+[node name="PDB Input" type="Control" parent="TabContainer"]
+layout_mode = 2
+
+[node name="ResultInput" type="TextEdit" parent="TabContainer/PDB Input"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -312.5
+offset_top = -112.5
+offset_right = 292.5
+offset_bottom = 104.5
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "PDB file content..."
+
+[node name="ParseButton" type="Button" parent="TabContainer/PDB Input"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 204.5
+offset_top = 113.5
+offset_right = 291.5
+offset_bottom = 144.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Load"
+
+[node name="ClearButton" type="Button" parent="TabContainer/PDB Input"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 120.5
+offset_top = 113.5
+offset_right = 196.5
+offset_bottom = 144.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Clear"
+
+[node name="LoadPDB" type="Label" parent="TabContainer/PDB Input"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -313.5
+offset_top = -145.5
+offset_right = -161.5
+offset_bottom = -119.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Load PDB from file:"
+
+[node name="PasteBellow" type="Label" parent="TabContainer/PDB Input"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = -146.0
+offset_right = 294.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "or paste the PDB content in the field below:"
+
+[node name="Button" type="Button" parent="TabContainer/PDB Input"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -153.5
+offset_top = -148.5
+offset_right = -49.5
+offset_bottom = -117.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Select file..."
