@@ -313,7 +313,6 @@ class Token(Enum):
 
     # Numerical constant tokens
     NUMERICAL_CONSTANT = 19
-    FORCE_NUMERICAL_LABEL = 20
 
 
 BondEnums = [
@@ -329,14 +328,18 @@ BondEnums = [
 
 def get_tokens(smile):
     lexer_tree = []
+
+    numeric_constant = False
     numeric_lexeme = ""
 
     count = 0
     while count < len(smile):
         token = smile[count]
+        next_token = smile[count + 1] if count + 1 < len(smile) else []
+
         atom_token = ""
         if count + 1 < len(smile):
-            atom_token = list_to_str([token, smile[count + 1]])
+            atom_token = list_to_str([token, next_token])
         else:
             atom_token = token
 
@@ -350,13 +353,16 @@ def get_tokens(smile):
             count += 1
         elif list_includes(AtomSymbols, token):
             lexer_tree.append(token)
-        elif list_includes(SpecialSymbols, token):
-            lexer_tree.append(token)
+        elif token == "%":
+            numeric_constant = True
 
         if token.isnumeric():
-            numeric_lexeme += token
+            if numeric_constant:
+                numeric_lexeme += token
+            else:
+                lexer_tree.append(token)
 
-        if not token.isnumeric() and numeric_lexeme != "":
+        if len(next_token) != 0 and not next_token.isnumeric() and numeric_lexeme != "":
             lexer_tree.append(list_to_str(numeric_lexeme))
             numeric_lexeme = ""
         elif count + 1 == len(smile) and numeric_lexeme != "":
@@ -418,8 +424,6 @@ def get_lexer_tree(smile):
             lexer_tree.append((Token.POSITIVE_CHARGE, token))
         elif token == "-":
             lexer_tree.append((Token.NEGATIVE_CHARGE, token))
-        elif token == "%":
-            lexer_tree.append((Token.FORCE_NUMERICAL_LABEL, token))
         elif token.isnumeric():
             lexer_tree.append((Token.NUMERICAL_CONSTANT, token))
 
@@ -455,7 +459,7 @@ def parse(smile):
             if token[0] == Token.CLOSE_ATOM_BRACKET:
                 inside_atom = False
                 previows_atom = False
-                if next_token[0] == Token.NUMERICAL_CONSTANT:
+                if len(next_token) != 0 and next_token[0] == Token.NUMERICAL_CONSTANT:
                     atom_buffer.label = next_token[1]
                     count += 1
                 branch.append(atom_buffer)

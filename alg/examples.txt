@@ -1,3 +1,0 @@
-C=C=C
-CClCnCN -> C | Cl | Cn | C | N
-
