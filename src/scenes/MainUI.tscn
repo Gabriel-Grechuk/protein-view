@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://ca6sd8yp0iov3" path="res://src/scenes/ParserUI.tscn" id="1_bvr1p"]
 [ext_resource type="PackedScene" uid="uid://dngg5tpn3roh1" path="res://src/scenes/LoadingScreen.tscn" id="1_est7j"]
 
-[sub_resource type="GDScript" id="GDScript_eou8o"]
+[sub_resource type="GDScript" id="GDScript_uuypy"]
 
 [node name="MainUI" type="Control"]
 layout_mode = 3
@@ -12,7 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = SubResource("GDScript_eou8o")
+script = SubResource("GDScript_uuypy")
 
 [node name="Menu" type="Control" parent="."]
 layout_mode = 1

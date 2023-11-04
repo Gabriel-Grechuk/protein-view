@@ -1,4 +1,15 @@
-[gd_scene format=3 uid="uid://ca6sd8yp0iov3"]
+[gd_scene load_steps=3 format=3 uid="uid://ca6sd8yp0iov3"]
+
+[ext_resource type="Script" path="res://src/scenes/scripts/ParserUI.gd" id="1_oi4kf"]
+
+[sub_resource type="GDScript" id="GDScript_m4jwv"]
+script/source = "extends Button
+
+@onready var parserUI = $\"../../../ParserUI\"
+
+func _button_pressed():
+	print(\"ClearSDFButton\")
+"
 
 [node name="ParserUI" type="Control"]
 layout_mode = 3
@@ -9,6 +20,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_oi4kf")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
@@ -27,7 +39,7 @@ grow_vertical = 2
 [node name="SDF Input" type="Control" parent="TabContainer"]
 layout_mode = 2
 
-[node name="ResultInput" type="TextEdit" parent="TabContainer/SDF Input"]
+[node name="SDFText" type="TextEdit" parent="TabContainer/SDF Input"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -40,9 +52,9 @@ offset_right = 292.5
 offset_bottom = 104.5
 grow_horizontal = 2
 grow_vertical = 2
-placeholder_text = "PDB file content..."
+placeholder_text = "SDF file content..."
 
-[node name="ParseButton" type="Button" parent="TabContainer/SDF Input"]
+[node name="LoadSDFButton" type="Button" parent="TabContainer/SDF Input"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -57,7 +69,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Load"
 
-[node name="ClearButton" type="Button" parent="TabContainer/SDF Input"]
+[node name="ClearSDFButton" type="Button" parent="TabContainer/SDF Input"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -71,6 +83,7 @@ offset_bottom = 144.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Clear"
+script = SubResource("GDScript_m4jwv")
 
 [node name="LoadSDF" type="Label" parent="TabContainer/SDF Input"]
 layout_mode = 1
@@ -102,7 +115,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "or paste the SDF content in the field below:"
 
-[node name="Button" type="Button" parent="TabContainer/SDF Input"]
+[node name="SelectSDFFile" type="Button" parent="TabContainer/SDF Input"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -118,9 +131,10 @@ grow_vertical = 2
 text = "Select file..."
 
 [node name="PDB Input" type="Control" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
-[node name="ResultInput" type="TextEdit" parent="TabContainer/PDB Input"]
+[node name="PDBFile" type="TextEdit" parent="TabContainer/PDB Input"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -135,7 +149,7 @@ grow_horizontal = 2
 grow_vertical = 2
 placeholder_text = "PDB file content..."
 
-[node name="ParseButton" type="Button" parent="TabContainer/PDB Input"]
+[node name="LoadPDBButton" type="Button" parent="TabContainer/PDB Input"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -150,7 +164,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Load"
 
-[node name="ClearButton" type="Button" parent="TabContainer/PDB Input"]
+[node name="ClearPDBButton" type="Button" parent="TabContainer/PDB Input"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -195,7 +209,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "or paste the PDB content in the field below:"
 
-[node name="Button" type="Button" parent="TabContainer/PDB Input"]
+[node name="SelectPDBFile" type="Button" parent="TabContainer/PDB Input"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
