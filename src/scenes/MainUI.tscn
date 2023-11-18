@@ -1,8 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfmsnt483isnt"]
+[gd_scene load_steps=4 format=3 uid="uid://cfmsnt483isnt"]
 
-[ext_resource type="Script" path="res://src/scenes/scripts/CancelButton.gd" id="1_tfj8s"]
+[ext_resource type="PackedScene" uid="uid://ca6sd8yp0iov3" path="res://src/scenes/ParserUI.tscn" id="1_bvr1p"]
+[ext_resource type="PackedScene" uid="uid://dngg5tpn3roh1" path="res://src/scenes/LoadingScreen.tscn" id="1_est7j"]
 
-[sub_resource type="GDScript" id="GDScript_eou8o"]
+[sub_resource type="GDScript" id="GDScript_uuypy"]
 
 [node name="MainUI" type="Control"]
 layout_mode = 3
@@ -11,7 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = SubResource("GDScript_eou8o")
+script = SubResource("GDScript_uuypy")
 
 [node name="Menu" type="Control" parent="."]
 layout_mode = 1
@@ -23,56 +24,25 @@ grow_vertical = 2
 
 [node name="MenuPanel" type="Panel" parent="Menu"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -131.5
-offset_right = 249.0
-offset_bottom = 131.5
-
-[node name="SmileInput" type="TextEdit" parent="Menu/MenuPanel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -94.0
-offset_top = -14.0
-offset_right = 98.0
-offset_bottom = 15.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 12
-placeholder_text = "Enter SMILE"
 
-[node name="LoadSmileButton" type="Button" parent="Menu/MenuPanel"]
-layout_mode = 0
-offset_left = 220.0
-offset_top = 154.0
-offset_right = 294.0
-offset_bottom = 179.0
-theme_override_font_sizes/font_size = 12
-text = "Load SMILE"
+[node name="ParserUI" parent="Menu/MenuPanel" instance=ExtResource("1_bvr1p")]
+layout_mode = 1
+pivot_offset = Vector2(301, 232)
 
-[node name="CancelButton" type="Button" parent="Menu/MenuPanel"]
-layout_mode = 0
-offset_left = 302.0
-offset_top = 154.0
-offset_right = 349.0
-offset_bottom = 179.0
-theme_override_font_sizes/font_size = 12
-text = "Cancel"
-script = ExtResource("1_tfj8s")
-
-[node name="Logs" type="Label" parent="."]
+[node name="Title" type="Label" parent="."]
 layout_mode = 0
 offset_left = 2.0
 offset_top = 2.0
-offset_right = 96.0
-offset_bottom = 140.0
+offset_right = 324.0
+offset_bottom = 21.0
 theme_override_font_sizes/font_size = 11
-text = "Logs in here"
+text = "Protein View"
+
+[node name="LoadingScreen" parent="." instance=ExtResource("1_est7j")]
+visible = false
+layout_mode = 1

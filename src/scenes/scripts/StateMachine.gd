@@ -1,8 +1,10 @@
 extends Node
 
 @onready var menu := get_node('/root/Main/MainUI')
+@onready var loadingScreen := get_node("/root/Main/MainUI/LoadingScreen")
 
 var paused = false
+var loading = false
 
 func pause():
 	paused = true
@@ -17,6 +19,16 @@ func unpause():
 func isPaused():
 	return paused
 
+func setLoading():
+	loading = true
+	loadingScreen.visible = true
+
+func unsetLoading():
+	loading = false
+	loadingScreen.visible = false
+
+func isLoading():
+	return loading
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed('ui_cancel'):
@@ -24,4 +36,3 @@ func _unhandled_input(event: InputEvent):
 			unpause()
 		else:
 			pause()
-

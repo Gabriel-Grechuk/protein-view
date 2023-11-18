@@ -2,17 +2,19 @@
 extends CharacterBody3D
 
 
-const MOVE_SPEED = 7.0
-const JUMP_SPEED = 6
+const MOVE_SPEED = 8.0
+const JUMP_SPEED = 8
 const MOUSE_SENSIVITY = 0.005
 const MIN_CAM_ANGLE = -90.0
 const MAX_CAM_ANGLE = 90.0
-const GRAVITY = 15
+const GRAVITY = 25
 
 
 @onready var neck := $Neck
 @onready var camera := $Neck/Camera3D
 @onready var stateMachine := get_node('/root/Main/StateMachine')
+
+var flying := false
 
 # Handle mouse input.
 func _unhandled_input(event: InputEvent):
@@ -26,13 +28,30 @@ func _unhandled_input(event: InputEvent):
 # Regular first person player input.
 func _physics_process(delta):
 	if not stateMachine.isPaused():
-		if not is_on_floor():
+		# Gravity
+		if not is_on_floor() and not flying:
 			velocity.y -= GRAVITY * delta
 
-		# I'm not sure if the viewer will be able to jump, but i'm keeping it for now.
-		if Input.is_action_just_pressed("jump") and is_on_floor():
-			velocity.y = JUMP_SPEED
+		# Flying mode
+		if Input.is_action_just_pressed("fly_mode"):
+			flying = not flying # Reverse flying mode
 
+		# Vertical input actions
+		if Input.is_action_just_pressed("jump"):
+			if not flying:
+				if is_on_floor():
+					velocity.y += JUMP_SPEED 
+			else:
+				velocity.y = MOVE_SPEED * 1.1
+
+		if Input.is_action_just_pressed("down"):
+			velocity.y = -MOVE_SPEED * 1.1
+		
+		# Realease vertical input
+		if (flying and (Input.is_action_just_released ("jump") or Input.is_action_just_released ("down"))):
+			velocity.y = 0
+
+		# Horizontal movimentation
 		var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 		var direction = (neck.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		if direction:
