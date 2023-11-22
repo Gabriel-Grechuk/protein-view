@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://coeb3fi43v5f"]
 
 [ext_resource type="Script" path="res://src/scenes/scripts/Main.gd" id="1_p35yk"]
-[ext_resource type="PackedScene" uid="uid://ph3xy13p4jsr" path="res://src/scenes/MoleculeSurfaceView.tscn" id="2_4gd8b"]
+[ext_resource type="PackedScene" uid="uid://cxjhewxx502x7" path="res://src/scenes/MoleculeSurfaceView.tscn" id="2_4gd8b"]
 [ext_resource type="PackedScene" uid="uid://dcfskf8qq28gf" path="res://src/scenes/User.tscn" id="2_l5qww"]
 [ext_resource type="PackedScene" uid="uid://bosi6edhl5v8a" path="res://src/scenes/Environment.tscn" id="3_m8jif"]
 [ext_resource type="PackedScene" uid="uid://cfmsnt483isnt" path="res://src/scenes/MainUI.tscn" id="4_j7yqu"]
@@ -32,14 +32,13 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="Molecule" parent="." instance=ExtResource("2_4gd8b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49894, 0)
+position = Vector2(0, 1.49894)
 
 [node name="User" parent="." instance=ExtResource("2_l5qww")]
 
 [node name="Environment" parent="." instance=ExtResource("3_m8jif")]
 
 [node name="MainUI" parent="." instance=ExtResource("4_j7yqu")]
-visible = false
 script = null
 
 [node name="StateMachine" type="Node" parent="."]
