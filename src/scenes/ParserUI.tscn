@@ -223,3 +223,11 @@ offset_bottom = -117.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Select file..."
+
+[node name="ClosseButton" type="Button" parent="."]
+layout_mode = 2
+offset_left = 511.0
+offset_top = -269.0
+offset_right = 548.0
+offset_bottom = -238.0
+text = "X"
