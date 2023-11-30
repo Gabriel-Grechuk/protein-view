@@ -16,6 +16,7 @@ class_name ParserUI
 @onready var LoadPDBTextButton := get_node("TabContainer/PDB Input/LoadPDBButton")
 @onready var ClearSDFButton := get_node("TabContainer/SDF Input/ClearSDFButton")
 @onready var ClearPDBButton := get_node("TabContainer/PDB Input/ClearPDBButton")
+@onready var ClosseButton := get_node("ClosseButton")
 
 @onready var StateMachine := get_node("/root/Main/StateMachine")
 
@@ -25,6 +26,7 @@ func _ready():
 	LoadPDBTextButton.pressed.connect(self._loadPDBTextInput)
 	ClearSDFButton.pressed.connect(self._clearSDFTextInput)
 	ClearPDBButton.pressed.connect(self._clearPDBTextInput)
+	ClosseButton.pressed.connect(self._closeUI)
 
 
 func _clearPDBTextInput():
@@ -38,3 +40,6 @@ func _loadPDBTextInput():
 
 func _loadSDFTextInput():
 	SDFText = SDFInput.get_text()
+
+func _closeUI():
+	StateMachine.unpause()
